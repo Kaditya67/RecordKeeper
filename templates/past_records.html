@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}Past Records {% endblock %}
+{% block Navbar %}Past Records{% endblock Navbar %}
+{% block content %}
+
+<table class="table table-striped" style="margin-top: 20px;">
+    <thead class="thead-dark">
+        <tr>
+            <th>Name</th>
+            <th>User ID</th>
+            <th>Phone</th>
+            <th>Comments</th>
+            <th>Govt Fees</th>
+            <th>Application No</th>
+            <th>Fees Charged</th>
+            <th>Tehsil</th>
+            <th>Referral</th>
+            <th>Document Type</th>
+            <th>Date Uploaded</th>
+            <th>Status</th>
+            <th>Operator</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for customer in customers %}
+        <tr>
+            <td>{{ customer.customerName }}</td>
+            <td>{{ customer.CustomerUserId }}</td>
+            <td>{{ customer.CustomerPhone }}</td>
+            <td>{{ customer.Comments }}</td>
+            <td>{{ customer.GovtFees }}</td>
+            <td>{{ customer.ApplicationNo }}</td>
+            <td>{{ customer.FeesChargedToCustomer }}</td>
+            <td>{{ customer.Tehsil }}</td>
+            <td>{{ customer.Referral }}</td>
+            <td>{{ customer.documentType }}</td>
+            <td>{{ customer.dateUploaded }}</td>
+            <td>{{ customer.status }}</td>
+            <td>{{ customer.operator }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+
+<!-- Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+{% endblock %}

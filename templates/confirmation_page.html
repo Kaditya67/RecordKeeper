@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmation Page</title>
+</head>
+<body>
+    <h1>Confirmation Page</h1>
+    <p>Please review the details of the record and confirm:</p>
+    <table class="table table-striped">
+        <tbody>
+            <tr>
+                <th>Name:</th>
+                <td>{{ customer.customerName }}</td>
+            </tr>
+            <tr>
+                <th>User ID:</th>
+                <td>{{ customer.CustomerUserId }}</td>
+            </tr>
+            <!-- Include other record details as needed -->
+        </tbody>
+    </table>
+    <form action="{% url 'confirm_approval' customer.id %}" method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-primary">Confirm Approval</button>
+        <a href="{% url 'approved_records' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+</body>
+</html>

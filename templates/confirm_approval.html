@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirm Approval</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            padding: 20px;
+        }
+        .card {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-4">Confirm Approval</h1>
+        <div class="card">
+            <div class="card-body">
+                <p class="card-text">Are you sure you want to approve the following record?</p>
+                <table class="table table-striped">
+                    <tbody>
+                        <tr>
+                            <th>Name:</th>
+                            <td>{{ customer.customerName }}</td>
+                        </tr>
+                        <tr>
+                            <th>User ID:</th>
+                            <td>{{ customer.CustomerUserId }}</td>
+                        </tr>
+                        <tr>
+                            <th>Document Type:</th>
+                            <td>{{ customer.documentType }}</td>
+                        </tr>
+                        <tr>
+                            <th>Phone:</th>
+                            <td>{{ customer.CustomerPhone }}</td>
+                        </tr>
+                        <tr>
+                            <th>Govt Fees:</th>
+                            <td>{{ customer.GovtFees }}</td>
+                        </tr>
+                        <tr>
+                            <th>Fees Charged:</th>
+                            <td>{{ customer.FeesChargedToCustomer }}</td>
+                        </tr>
+                        <tr>
+                            <th>Date Uploaded:</th>
+                            <td>{{ customer.dateUploaded }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <form action="{% url 'confirm_approval' customer.id %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-success">Yes, Approve</button>
+                    <a href="{% url 'pending' %}" class="btn btn-secondary">No, Cancel</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

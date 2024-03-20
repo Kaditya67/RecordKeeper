@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+{% block title %} Past Revenue {% endblock %}
+{% block Navbar %}Past 30 Days Revenue{% endblock Navbar %}
+{% block content %}
+<style>
+/* Custom CSS for styling the card with bg-light class */
+
+.card.bg-light {
+    border: 1px solid #ced4da; /* Add border */
+    border-radius: 0.25rem; /* Add border radius */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Add box shadow */
+}
+
+.card.bg-light .card-body {
+    padding: 1.25rem; /* Add padding to the card body */
+}
+
+.card.bg-light .card-title {
+    color: #007bff; /* Change card title color */
+    font-size: 1.25rem; /* Change card title font size */
+    margin-bottom: 0.5rem; /* Add margin below card title */
+}
+
+.card.bg-light .card-text {
+    font-size: 1rem; /* Change card text font size */
+    margin-bottom: 0; /* Remove margin below card text */
+}
+</style>
+
+<div class="container">
+
+    <!-- Display records -->
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>User ID</th>
+                <th>Phone</th>
+                <th>Comments</th>
+                <th>Govt Fees</th>
+                <th>Application No</th>
+                <th>Fees Charged</th>
+                <th>Tehsil</th>
+                <th>Referral</th>
+                <th>Document Type</th>
+                <th>Date Uploaded</th>
+                <th>Status</th>
+                <th>Operator</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for record in past_30_days_approved_records %}
+            <tr>
+                <td>{{ record.customerName }}</td>
+                <td>{{ record.CustomerUserId }}</td>
+                <td>{{ record.CustomerPhone }}</td>
+                <td>{{ record.Comments }}</td>
+                <td>${{ record.GovtFees }}</td>
+                <td>{{ record.ApplicationNo }}</td>
+                <td>${{ record.FeesChargedToCustomer }}</td>
+                <td>{{ record.Tehsil }}</td>
+                <td>{{ record.Referral }}</td>
+                <td>{{ record.documentType }}</td>
+                <td>{{ record.dateUploaded }}</td>
+                <td>{{ record.status }}</td>
+                <td>{{ record.operator }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <br>
+    <!-- Display total revenue for FeesChargedToCustomer and GovtFees -->
+    <div class="row mt-3">
+        <div class="col-md-6">
+            <div class="card bg-light">
+                <div class="card-body">
+                    <h5 class="card-title">Total Fees Charged</h5>
+                    <p class="card-text">Rs.{{ total_fees_charged }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card bg-light">
+                <div class="card-body">
+                    <h5 class="card-title">Total Govt Fees</h5>
+                    <p class="card-text">Rs.{{ total_govt_fees }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+{% endblock %}

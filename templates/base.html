@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}RecordKeeper{% endblock %}</title>
+  <link rel="icon" href="{% static 'images/logo1.jpg' %}" type="image/png">
+  
+
+  <style>
+    /* Basic CSS for the navigation bar */
+    .navbar ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: var(--primary-color-light); /* Set initial background color */
+        transition: var(--tran-05);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add shadow effect */
+    }
+
+    .navbar li {
+        float:right;
+    }
+
+    .navbar h2 {
+        color: var(--text-color);
+    }
+    
+
+    .navbar li a {
+        display: block;
+        color: var(--text-color)
+        text-align: center;
+        {% comment %} padding-right: 30px; {% endcomment %}
+        {% comment %} padding-left:30px; {% endcomment %}
+        padding-top:12px;
+        padding-bottom:12px;
+        border-radius:88px;
+        text-decoration: none;
+        transition: var(--tran-03);
+    }
+
+    /* Change the link color to indicate the current page */
+    .navbar li a:hover {
+      {% comment %} background-color: var(--primary-color); {% endcomment %}
+      color:var(--primary-color);
+
+    }
+
+    /* Navbar in dark mode */
+    body.dark .navbar ul{
+        background-color: #020509; /* Change background color in dark mode */
+    }
+
+    /* Text color for navbar links in dark mode */
+    body.dark .navbar a {
+        color: var(--text-color); /* Change text color in dark mode */
+    }
+
+    body.dark .navbar h2 {
+        color: var(--text-color); /* Change text color in dark mode */
+    }
+
+    body.dark .nav-text{
+      color:#fff;
+    }
+    /* Hover styles for navbar links in dark mode */
+    body.dark .navbar a:hover {
+        color: var(--primary-color-toggle);
+        {% comment %} color:var(--primary-color) {% endcomment %}
+    }
+
+    
+    /* Google Font Import - Poppins */
+    @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+
+    /* CSS Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    :root {
+      /* ===== Colors ===== */
+      --body-color: #e4e9f7;
+      --sidebar-color: #fff;
+      --primary-color: #695cfe;
+      --primary-color-light: #f6f5ff;
+      --toggle-color: #ddd;
+      --text-color: #707070;
+
+      /* ====== Transition ====== */
+      --tran-03: all 0.2s ease;
+      --tran-03: all 0.3s ease;
+      --tran-04: all 0.3s ease;
+      --tran-05: all 0.3s ease;
+    }
+
+    body {
+      min-height: 100vh;
+      background-color: var(--body-color);
+      transition: var(--tran-05);
+    }
+
+    ::selection {
+      background-color: var(--primary-color);
+      color: #fff;
+    }
+
+    body.dark {
+      --body-color: #18191a;
+      --sidebar-color: #242526;
+      --primary-color: #3a3b3c;
+      --primary-color-light: #3a3b3c;
+      --toggle-color: #fff;
+      --primary-color-toggle: #695cfe;
+      --text-color: #ccc;
+    }
+
+    /* ===== Sidebar ===== */
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 250px;
+      padding: 10px 14px;
+      background: var(--sidebar-color);
+      transition: var(--tran-05);
+      z-index: 100;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add shadow effect */
+    }
+
+    .sidebar.close {
+      width: 88px;
+    }
+
+    /* ===== Reusable code - Here ===== */
+    .sidebar li {
+      height: 50px;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      margin-top: 10px;
+    }
+
+    .sidebar header .image,
+    .sidebar .icon {
+      min-width: 60px;
+      border-radius: 6px;
+    }
+
+    .sidebar .icon {
+      min-width: 60px;
+      border-radius: 6px;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+
+    .sidebar .text,
+    .sidebar .icon {
+      color: var(--text-color);
+      transition: var(--tran-03);
+    }
+
+    .sidebar .text {
+      font-size: 17px;
+      font-weight: 500;
+      white-space: nowrap;
+      opacity: 1;
+    }
+
+    .sidebar.close .text {
+      opacity: 0;
+    }
+
+    .sidebar.close .textdis {
+      display:none;
+    }
+    /* =========================== */
+
+    .sidebar header {
+      position: relative;
+    }
+
+    .sidebar header .image-text {
+      display: flex;
+      align-items: center;
+    }
+
+    .sidebar header .logo-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    header .image-text .name {
+      margin-top: 2px;
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    header .image-text .profession {
+      font-size: 16px;
+      margin-top: -2px;
+      display: block;
+    }
+
+    .sidebar header .image {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .sidebar header .image img {
+      width: 40px;
+      border-radius: 6px;
+    }
+
+    .sidebar header .toggle {
+      position: absolute;
+      top: 50%;
+      right: -25px;
+      transform: translateY(-50%) rotate(180deg);
+      height: 25px;
+      width: 25px;
+      background-color: var(--primary-color);
+      color: var(--sidebar-color);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      cursor: pointer;
+      transition: var(--tran-05);
+    }
+
+    body.dark .sidebar header .toggle {
+      color: var(--text-color);
+      background-color: var(--primary-color-toggle);
+    }
+
+    .sidebar.close .toggle {
+      transform: translateY(-50%) rotate(0deg);
+    }
+
+    .sidebar .menu {
+      margin-top: 40px;
+    }
+
+    .sidebar li.search-box {
+      border-radius: 6px;
+      background-color: var(--primary-color-light);
+      cursor: pointer;
+      transition: var(--tran-05);
+    }
+
+    .sidebar li.search-box input {
+      height: 100%;
+      width: 100%;
+      outline: none;
+      border: none;
+      background-color: var(--primary-color-light);
+      color: var(--text-color);
+      border-radius: 6px;
+      font-size: 17px;
+      font-weight: 500;
+      transition: var(--tran-05);
+    }
+
+    .sidebar li a {
+      list-style: none;
+      height: 100%;
+      background-color: transparent;
+      display: flex;
+      align-items: center;
+      height: 100%;
+      width: 100%;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: var(--tran-03);
+    }
+
+    .sidebar li a:hover {
+      background-color: var(--primary-color);
+    }
+
+    .sidebar li a:hover .icon,
+    .sidebar li a:hover .text {
+      color: var(--sidebar-color);
+    }
+
+    body.dark .sidebar li a:hover .icon,
+    body.dark .sidebar li a:hover .text {
+      color: var(--text-color);
+    }
+
+    .sidebar .menu-bar {
+      height: calc(100% - 55px);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow-y: scroll;
+    }
+
+    .menu-bar::-webkit-scrollbar {
+      display: none;
+    }
+
+    .sidebar .menu-bar .mode {
+      border-radius: 6px;
+      background-color: var(--primary-color-light);
+      position: relative;
+      transition: var(--tran-05);
+    }
+
+    .menu-bar .mode .sun-moon {
+      height: 50px;
+      width: 60px;
+    }
+
+    .mode .sun-moon i {
+      position: absolute;
+    }
+
+    .mode .sun-moon i.sun {
+      opacity: 0;
+    }
+
+    body.dark .mode .sun-moon i.sun {
+      opacity: 1;
+    }
+
+    body.dark .mode .sun-moon i.moon {
+      opacity: 0;
+    }
+
+    .menu-bar .bottom-content .toggle-switch {
+      position: absolute;
+      right: 0;
+      height: 100%;
+      min-width: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .toggle-switch .switch {
+      position: relative;
+      height: 22px;
+      width: 40px;
+      border-radius: 25px;
+      background-color: var(--toggle-color);
+      transition: var(--tran-05);
+    }
+
+    .switch::before {
+      content: "";
+      position: absolute;
+      height: 15px;
+      width: 15px;
+      border-radius: 50%;
+      top: 50%;
+      left: 5px;
+      transform: translateY(-50%);
+      background-color: var(--sidebar-color);
+      transition: var(--tran-04);
+    }
+
+    body.dark .switch::before {
+      left: 20px;
+
+    }
+
+    .home {
+      position: absolute;
+      top: 0;
+      left: 250px;
+      height: 100vh;
+      width: calc(100% - 250px);
+      background-color: var(--body-color);
+      transition: var(--tran-05);
+    }
+
+    .home .title {
+      font-size: 30px;
+      font-weight: 500;
+      color: var(--text-color);
+      padding: 12px 60px;
+    }
+    .home .content {
+      font-size: 12px;
+      {% comment %} font-weight: 500; {% endcomment %}
+      color: var(--text-color);
+      padding: 12px 60px;
+    }
+
+    .home .body_content{
+        font-size: 18px;
+      padding: 12px 60px;
+      color: var(--text-color);
+    }
+
+    .sidebar.close ~ .home {
+      left: 78px;
+      height: 100vh;
+      width: calc(100% - 78px);
+    }
+
+    body.dark .home .text {
+      color: var(--text-color);
+    }/* Table style */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      border: 2px solid #ddd;
+      font-family: Arial, sans-serif;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* Header style */
+    th {
+      background-color: #3a3b3c;
+      color: #ddd;
+      border: 2px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+    
+    /* Alternate row color */
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+    
+    /* Cell style */
+    td {
+      border: 1px solid #ddd;
+      padding: 8px;
+    }
+    
+    /* Table style for dark mode */
+    body.dark table {
+      border: 2px solid #555; /* Darker border color */
+      box-shadow: 0 4px 6px rgba(255, 255, 255, 0.1);
+    }
+    
+    body.dark th {
+      background-color: #555; /* Darker header background */
+      color: #ddd; /* Lighter text color for headers */
+    }
+    
+    body.dark tr:nth-child(even) {
+      background-color: #444; /* Darker background for alternate rows */
+    }
+    
+    body.dark td {
+      border-color: #555; /* Darker border color for cells */
+    }
+
+    .sidebar .menu-links .nav-link.active a {
+      background-color: var(--primary-color); /* Background color for active tab */
+    }
+    
+    .sidebar .menu-links .nav-link.active .icon,
+    .sidebar .menu-links .nav-link.active .nav-text {
+      color: var(--sidebar-color); /* Text color for active tab */
+    }    
+    
+  </style>
+
+  <!----===== Boxicons CSS ===== -->
+  <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+</head>
+
+<body>
+  <nav class="sidebar close">
+    <header>
+      <div class="image-text">
+        <span class="image">
+          <a href="{% url 'index' %}"><img src="{% static 'images/logo1.png' %}" alt=""></a>
+        </span>
+
+        <div class="text logo-text">
+          <span class="name">RecordKeeper</span>
+          <span class="profession">Convenient Records</span>
+        </div>
+      </div>
+
+      <i class='bx bx-chevron-right toggle'></i>
+    </header>
+
+    <div class="menu-bar">
+      <div class="menu">
+        
+        </li>
+
+        <ul class="menu-links">
+          <li class="nav-link {% if current_path == 'index' %}active{% endif %}">
+            <a href="{% url 'index' %}">
+              <i class='bx bx-home-alt icon'></i>
+              <span class="textdis nav-text">Dashboard</span>
+            </a>
+          </li>
+
+          <li class="nav-link {% if current_path == 'approved' %}active{% endif %}">
+            <a href="{% url "approved" %}">
+              <i class='bx bx-bar-chart-alt-2 icon'></i>
+              <span class="textdis nav-text">Approved</span>
+            </a>
+          </li>
+
+          <li class="nav-link {% if current_path == 'pending' %}active{% endif %}">
+            <a href="{% url "pending" %}">
+              <i class='bx bx-bell icon'></i>
+              <span class="textdis nav-text">Pending</span>
+            </a>
+          </li>
+
+          <li class="nav-link {% if current_path == 'past_records' %}active{% endif %}">
+            <a href="{% url 'past_records' %}">
+              <i class='bx bx-pie-chart-alt icon'></i>
+              <span class="textdis nav-text">Past Records</span>
+            </a>
+          </li>
+ 
+          <li class="nav-link {% if current_path == 'past_30_days_revenue' %}active{% endif %}">
+            <a href="{% url "past_30_days_revenue" %}">
+              <i class='bx bx-heart icon'></i>
+              <span class="textdis nav-text">Revenue</span>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="/admin/">
+                <i class="bx bx-cog icon"></i>
+                <span class="textdis nav-text">Django Admin</span>
+            </a>
+        </li>
+        
+        </ul>
+      </div>
+
+      <div class="bottom-content">
+
+        <li class="mode">
+          <div class="sun-moon">
+            <i class='bx bx-moon icon moon'></i>
+            <i class='bx bx-sun icon sun'></i>
+          </div>
+          <span class="mode-text textdis">Dark mode</span>
+
+          <div class="toggle-switch">
+            <span class="switch"></span>
+          </div>
+        </li>
+      </div>
+    </div>
+  </nav>
+
+  <section class="home">
+    <div class="navbar">
+      <ul>
+        <h2 style="text-align:center;padding-top:20px;padding-bottom:20px;">{% block Navbar %}{% endblock Navbar %}</h2>
+  </div>
+  <div class="body_content">
+    {% block content %}
+    {% endblock content %}
+</div>
+  </section>
+
+  <script>
+    const body = document.querySelector('body'),
+      sidebar = body.querySelector('nav'),
+      toggle = body.querySelector(".toggle"),
+      
+      modeSwitch = body.querySelector(".toggle-switch"),
+      modeText = body.querySelector(".mode-text");
+    toggle.addEventListener("click", () => {
+      sidebar.classList.toggle("close");
+    })
+
+    modeSwitch.addEventListener("click", () => {
+      body.classList.toggle("dark");
+      if (body.classList.contains("dark")) {
+        modeText.innerText = "Light mode";
+      } else {
+        modeText.innerText = "Dark mode";
+      }
+    });
+  </script>
+
+</body>
+
+</html>
