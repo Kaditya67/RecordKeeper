@@ -4,7 +4,8 @@ from services import views
 
 
 urlpatterns = [
-    path('',views.index,name="index"),
+    path('',views.login,name="login"),
+    path('index/',views.index,name="index"),
     path('approved/',views.approved,name="approved"),
     path('pending/',views.pending,name="pending"),
     path('past_records/',views.past_records,name="past_records"),

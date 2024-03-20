@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <title>RecordKeeper | Login</title>
+  {% load static %}
+  <link rel="icon" href="{% static 'images/logo1.png' %}" type="image/png">
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background: url('{% static "images/background.jpg" %}') center center fixed;
+      background-size: cover;
+      height: 100vh;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .container {
+      max-width: 400px;
+      background: rgba(255, 255, 255, 0.8);
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .container h2 {
+      text-align: center;
+    }
+
+    .no-account {
+      text-align: center;
+      margin-top: 15px;
+    }
+    
+    @media (max-width: 767px) {
+      body {
+        background-size: auto 100%;
+      }
+    }
+    
+  </style>
+  {% load static %}
+</head>
+<body>
+
+  <div class="container">
+    <!-- Login Page -->
+    <div id="login">
+      <h2>Login</h2>
+
+        <!-- Display Success Message -->
+        {% if messages %}
+          {% for message in messages %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+              {{ message }}
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+          {% endfor %}
+        {% endif %}
+
+        <!-- Display Error Message -->
+        {% if form.errors %}
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {% for field, errors in form.errors.items %}
+              {% for error in errors %}
+                {{ error }}
+              {% endfor %}
+            {% endfor %}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+        {% endif %}
+
+        <form method="post" action="{% url 'login' %}">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="username">UserName</label>
+                <input type="text" class="form-control" id="username" name="username" placeholder="Enter Username">
+            </div>
+            <div class="form-group">
+                <label for="loginPassword">Password</label>
+                <input type="password" class="form-control" id="loginPassword" name="password" placeholder="Password">
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Login</button>
+        </form>
+      <div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    </div>
+    </div>
+</body>
+</html>
