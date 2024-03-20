@@ -179,7 +179,7 @@ JAZZMIN_SETTINGS = {
 
     # Additional links to include in the user menu on the top right ("app" url type is not allowed)
     "usermenu_links": [
-        {"name": "Support", "url": "https://github.com/Kaditya67/StockTracker-Django", "new_window": True, "icon": "fa fa-tablet"},
+        {"name": "Support", "url": "https://github.com/Kaditya67/RecordKeeper/tree/master", "new_window": True, "icon": "fa fa-tablet"},
     ],
 
     #############
