@@ -168,7 +168,7 @@ JAZZMIN_SETTINGS = {
         {"name": "Home",  "url": "admin:index", "permissions": ["auth.view_user"]},
 
         # external url that opens in a new window (Permissions can be added)
-        {"name": "Back", "url": "http://127.0.0.1:8000/", "new_window": False},
+        {"name": "Back", "url": "http://127.0.0.1:8000/index", "new_window": False},
 
         {"app":"auth", },
     ],
