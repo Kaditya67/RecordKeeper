@@ -1,91 +1,105 @@
 # RecordKeeper
 
-**RecordKeeper** is a Django-based record-keeping system designed for small shops and operators to efficiently manage customer details, application approvals, government fee payments, and revenue tracking.
+RecordKeeper is a Django-based record-keeping system for small shops and operators to manage customers, application approvals, government fee payments, and revenue tracking.
 
 ---
 
 ## Features
 
-<details>
-<summary>Click to expand Features</summary>
-
-- **Customer Management:** Track detailed information for customers and applications.  
-- **Application Workflow:** Approve or mark applications as pending, with operator and approval tracking.  
-- **Government Fee Tracking:** Monitor government-related payments and calculate balances.  
-- **Revenue Reporting:** View revenue from the past 30 days with automated reporting.  
-- **User Authentication:** Supports login/logout for multiple users and operators.  
-- **Approval System:** Process record approvals securely, including confirmation steps.  
-- **Historical Records:** Access past customer and application records for audits or re-verification.  
-- **Multi-user Support:** Track actions by each user/operator for improved accountability.  
-
-</details>
+- Customer management (detailed customer & application records)  
+- Application workflow with approval/pending states and operator tracking  
+- Government fee tracking and balance calculations  
+- Revenue reporting (past 30 days)  
+- User authentication and multi-user/operator support  
+- Historical records for audits and re-verification
 
 ---
 
-## Setup Instructions
+## Prerequisites
 
-<details>
-<summary>Click to expand Setup</summary>
+- Python 3.8+  
+- pip  
+- (Optional) virtualenv or venv for an isolated environment
 
-### 1. Clone the Repository
+---
+
+## Quick Setup
+
+1. Clone the repository
 ```bash
 git clone https://github.com/Kaditya67/RecordKeeper.git
 cd RecordKeeper
 ```
 
-### 2. Install Dependencies
-Ensure Python 3.8+ and pip are installed.
+2. Create and activate a virtual environment (recommended)
+```bash
+python -m venv .venv
+# Windows
+.venv\Scripts\activate
+# macOS / Linux
+source .venv/bin/activate
+```
+
+3. Install dependencies
 ```bash
 pip install -r requirements.txt
 ```
 
-### 3. Apply Migrations
+4. Apply migrations
 ```bash
 python manage.py makemigrations
 python manage.py migrate
 ```
 
-### 4. Create Superuser (Admin Account)
+5. Create a superuser
 ```bash
 python manage.py createsuperuser
 ```
 
-### 5. Start the Development Server
+6. Run the development server
 ```bash
 python manage.py runserver
 ```
 
-### 6. Access the Application
+7. Open the app
 Visit http://127.0.0.1:8000 in your browser.
-</details>
 
-## Usage
-<details> <summary>Click to expand Usage Instructions</summary>
+---
 
-Login: Use provided credentials or superuser login.
+## Configuration Notes
 
-Add/View Customers: Navigate to customer management via the dashboard.
+- Use environment variables or a `.env` file to store sensitive settings (e.g., SECRET_KEY, DEBUG, database credentials).  
+- For production, use a proper WSGI server and configure static files, allowed hosts, and secure settings.
 
-Approve/Mark Applications: Check application status and perform approval actions.
+---
 
-Report Revenue & Fees: Use revenue and fee calculation views for analytics.
+## Usage Overview
 
-View History: Access previous records for references or audits.
+- Login with the superuser or operator account.  
+- Add and manage customers via the dashboard.  
+- View and process application approvals.  
+- Track government fee payments and balances.  
+- Generate revenue reports (30-day view) and review historical records for audits.
 
-</details>
+---
 
-## Directory Structure
-<details> <summary>Click to expand Directory Structure</summary>
+## Project Structure (high level)
 
-services/models.py: Contains data models for customers, applications, fees, and approvals.
+- services/models.py — data models for customers, applications, fees, and approvals  
+- services/views.py — views for records, revenue reporting, authentication, approvals  
+- templates/ — HTML templates: login, approval, revenue report, confirmations, history  
+- static/ — static assets (CSS, JS, images)  
+- manage.py — Django management script
 
-services/views.py: Includes views for managing records, revenue, authentication, and approvals.
+---
 
-templates/: HTML files for pages such as login, approval, revenue report, confirmations, and history.
+## Contributing
 
-</details>
+- Fork the repo, create a feature branch, open a pull request.  
+- Include tests where applicable and keep changes small and focused.
 
+---
 
 ## License
 
-This project is released under the MIT License—see the LICENSE file for details.
+This project is released under the MIT License — see the LICENSE file for details.
