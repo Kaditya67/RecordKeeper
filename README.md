@@ -4,6 +4,8 @@ RecordKeeper is a Django-based record-keeping system for small shops and operato
 
 ---
 
+## Master Branch has Actual Code
+
 ## Features
 
 - Customer management (detailed customer & application records)  
