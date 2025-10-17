@@ -73,3 +73,19 @@ Report Revenue & Fees: Use revenue and fee calculation views for analytics.
 View History: Access previous records for references or audits.
 
 </details>
+
+## Directory Structure
+<details> <summary>Click to expand Directory Structure</summary>
+
+services/models.py: Contains data models for customers, applications, fees, and approvals.
+
+services/views.py: Includes views for managing records, revenue, authentication, and approvals.
+
+templates/: HTML files for pages such as login, approval, revenue report, confirmations, and history.
+
+</details>
+
+
+## License
+
+This project is released under the MIT License—see the LICENSE file for details.
