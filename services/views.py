@@ -62,15 +62,9 @@ def confirm_approval(request, customer_id):
 
 @login_required
 def confirmation_page(request, customer_id):
-        
+    current_path = resolve(request.path_info).url_name
     customer = Customer.objects.get(pk=customer_id)
     return render(request, 'confirmation_page.html', {'customer': customer, 'current_path': current_path})
-
-from django.utils import timezone
-from datetime import timedelta
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
-from .models import Customer  # Import your Customer model here
 
 @login_required
 def past_records(request):

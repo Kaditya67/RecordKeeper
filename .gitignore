@@ -1,0 +1,34 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+myenv/
+.venv/
+env/
+venv/
+ENV/
+
+# Database & sqlite
+*.sqlite3
+*.sqlite3-journal
+db.sqlite3
+
+# Environment variables
+.env
+*.env
+
+# IDE / Editor files
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Log files
+*.log
+
+# Docker
+.dockerignore
